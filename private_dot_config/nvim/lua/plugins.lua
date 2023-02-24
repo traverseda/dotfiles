@@ -17,6 +17,7 @@ vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
 return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
   use 'folke/tokyonight.nvim'
+  use 'ojroques/nvim-bufdel'
 
   use {
     "nvim-neo-tree/neo-tree.nvim",

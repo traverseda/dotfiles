@@ -33,45 +33,27 @@ require('cokeline').setup({
 
   components = {
     {
-      text = function(buffer) return (buffer.index ~= 1) and '▏' or '' end,
-    },
-    {
-      text = '  ',
-    },
-    {
-      text = function(buffer)
-        return
-          (is_picking_focus() or is_picking_close())
-          and buffer.pick_letter .. ' '
-           or buffer.devicon.icon
-      end,
+      text = '｜',
       fg = function(buffer)
         return
-          (is_picking_focus() and yellow)
-          or (is_picking_close() and red)
-          or buffer.devicon.color
-      end,
-      style = function(_)
-        return
-          (is_picking_focus() or is_picking_close())
-          and 'italic,bold'
-           or nil
-      end,
+          buffer.is_modified and yellow or green
+      end
+    },
+    {
+      text = function(buffer) return buffer.devicon.icon .. ' ' end,
+      fg = function(buffer) return buffer.devicon.color end,
+    },
+    {
+      text = function(buffer) return buffer.pick_letter end,
+      style = function(buffer) return (is_picking_focus() or is_picking_close()) and 'underline,bold' or nil end,
+    },
+    { text=": " },
+    {
+      text = function(buffer) return buffer.filename .. ' ' end,
+      style = function(buffer) return buffer.is_focused and 'bold' or nil end,
     },
     {
       text = ' ',
     },
-    {
-      text = function(buffer) return buffer.filename .. '  ' end,
-      style = function(buffer) return buffer.is_focused and 'bold' or nil end,
-    },
-    {
-      text = '',
-      delete_buffer_on_left_click = true,
-    },
-    {
-      text = '  ',
-    },
   },
-
 })
