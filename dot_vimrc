@@ -1,25 +1,14 @@
 runtime defaults.vim
 
-call plug#begin()
-Plug 'lark-parser/vim-lark-syntax'
-Plug 'numToStr/Comment.nvim'
-call plug#end()
-
-lua require('Comment').setup()
 lua require('plugins')
 
 autocmd FileType html setlocal tabstop=2 shiftwidth=2 softtabstop=2
 
 set list lcs=trail:~,tab:»·
 
-augroup packer_user_config
-  autocmd!
-  autocmd BufWritePost plugins.lua source <afile> | PackerSync
-augroup end
-
 set background=dark
-colorscheme tokyonight-night
 set termguicolors
+colorscheme tokyonight-night
 
 "Q now closes buffers not all of vim
 "Use 'qa' to quit entire session, xa to quite and save entire session, etc
@@ -38,10 +27,21 @@ tnoremap <C-a>] <C-\><C-n>
 map <C-a>c :term<cr>
 map <C-a>x :bd<cr>
 tmap <C-a>c <C-\><C-n>:term<cr>
-tmap <C-a>x <C-\><C-n>:BufDel<cr>
+tmap <C-a>q <C-\><C-n>:BufDel<cr>
 
 autocmd TermOpen * startinsert
 autocmd BufEnter term://* startinsert
+
+function ChangeBufferName(old,new) abort
+    " Save the current cursor position and the current buffer number
+    let saveBuffer = bufnr('')
+    let saveCursor = getpos('.')
+    " Change the buffer name
+    execute 'b ' . a:old
+    execute 'file ' . a:new
+    execute 'b ' . saveBuffer
+    call setpos('.', saveCursor)
+endfunction
 
 "Cheatsheet
 " highlight than gc toggles comments
