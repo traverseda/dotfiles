@@ -30,5 +30,4 @@ update_buffer_name() {
   export VIM_BUFFER="term://${PWD/#$HOME/~/}/$$:${SHELL}"
 }
 
-
-
+export PATH="$HOME/bin:$PATH:$HOME/.local/bin"
