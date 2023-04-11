@@ -6,10 +6,13 @@ alias vim="nvim"
 ZSH_THEME="robbyrussell"
 plugins=(git)
 
+zmodload zsh/zpty
+
 source $ZSH/oh-my-zsh.sh
 
 export EDITOR='nvim'
 export HISTCONTROL=ignoredups
+export ACT_CACHE_AUTH_KEY=aeThooc0
 
 alias e="nvr --remote"
 if (( ${+NVIM} )); then

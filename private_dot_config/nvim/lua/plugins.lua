@@ -15,8 +15,25 @@ vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
 
 require("lazy").setup({
   'ojroques/nvim-bufdel',
-  'folke/tokyonight.nvim',
-  'numToStr/Comment.nvim',
+
+  {
+    "folke/tokyonight.nvim",
+    lazy = false, -- make sure we load this during startup if it is your main colorscheme
+    priority = 1000, -- make sure to load this before all the other start plugins
+    config = function()
+      -- load the colorscheme here
+      vim.cmd([[colorscheme tokyonight]])
+    end,
+  },
+
+  -- Openai integration... probably will remove later.
+  'madox2/vim-ai',
+
+  {'numToStr/Comment.nvim',
+    config = function()
+      require('Comment').setup()
+    end,
+  },
 
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
@@ -26,6 +43,7 @@ require("lazy").setup({
       -- Automatically install LSPs to stdpath for neovim
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
+      'FelipeLema/cmp-async-path',
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
