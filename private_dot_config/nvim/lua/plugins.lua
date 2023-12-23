@@ -15,6 +15,7 @@ vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
 
 require("lazy").setup({
   'ojroques/nvim-bufdel',
+  'tpope/vim-surround',
 
   {
     "folke/tokyonight.nvim",
@@ -26,8 +27,15 @@ require("lazy").setup({
     end,
   },
 
-  -- Openai integration... probably will remove later.
-  'madox2/vim-ai',
+  {'edluffy/hologram.nvim',
+    config=function()
+      require('hologram').setup{
+          auto_display = true -- WIP automatic markdown image display, may be prone to breaking
+      }
+    end,},
+
+  -- -- Openai integration... probably will remove later.
+  -- 'madox2/vim-ai',
 
   {'numToStr/Comment.nvim',
     config = function()
@@ -47,7 +55,7 @@ require("lazy").setup({
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', opts = {} },
+      { 'j-hui/fidget.nvim', opts = {}, tag = "legacy" },
 
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',

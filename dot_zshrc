@@ -31,3 +31,4 @@ update_buffer_name() {
 }
 
 export PATH="$HOME/bin:$PATH:$HOME/.local/bin"
+

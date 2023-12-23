@@ -4,3 +4,4 @@ about vim is that it fits itself to my pre-existing workflows, not the other way
 These dotfiles are managed by chezmoi.
 
     sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply traverseda
+    ~/bin/setup_traverseda.sh
