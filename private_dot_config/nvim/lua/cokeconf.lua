@@ -6,7 +6,8 @@ local red = vim.g.terminal_color_1
 local yellow = vim.g.terminal_color_3
 local green = vim.g.terminal_color_2
 
--- require("cokeline.history"):last():focus()
+--require("cokeline.history"):last():focus()
+require("cokeline.history")
 
 require('cokeline').setup({
     show_if_buffers_are_at_least = 2,
@@ -21,6 +22,24 @@ require('cokeline').setup({
             style = 'bold'
         }}
     },
+
+  history = {
+    enabled = true,
+    size = 2
+  },
+
+  pick = {
+    -- Whether to use the filename's first letter first before
+    -- picking a letter from the valid letters list in order.
+    -- default: `true`
+    use_filename = true,
+
+    -- The list of letters that are valid as pick letters. Sorted by
+    -- keyboard reachability by default, but may require tweaking for
+    -- non-QWERTY keyboard layouts.
+    -- default: asdfjkl;ghnmxcvbziowerutyqpASDFJKLGHNMXCVBZIOWERTYQP'
+    letters = 'sdfjkl;ghnmvbziowerutyqpASDFJKLGHNMXCVBZIOWERTYQP',
+  },
 
   default_hl = {
     fg = function(buffer)
