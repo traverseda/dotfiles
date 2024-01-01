@@ -1,4 +1,4 @@
-local get_hex = require('cokeline/utils').get_hex
+local get_hex = require('cokeline.hlgroups').get_hl_attr
 local is_picking_focus = require('cokeline/mappings').is_picking_focus
 local is_picking_close = require('cokeline/mappings').is_picking_close
 
