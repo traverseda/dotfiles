@@ -4,7 +4,6 @@ autoload -U add-zsh-hook
 
 alias vim="nvim"
 ZSH_THEME="robbyrussell"
-plugins=(git)
 
 zmodload zsh/zpty
 
