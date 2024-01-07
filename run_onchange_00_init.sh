@@ -19,8 +19,8 @@ then
 	ln -s ~/.local/bin/nix-portable ~/.local/bin/nix
 fi
 
-~/.local/bin/nix run nixpkgs#pipx install neovim-remote
-~/.local/bin/nix run nixpkgs#pipx install pushbullet-cli
+# ~/.local/bin/nix run nixpkgs#pipx install neovim-remote
+# ~/.local/bin/nix run nixpkgs#pipx install pushbullet-cli
 
 # sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
