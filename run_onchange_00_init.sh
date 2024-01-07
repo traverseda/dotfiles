@@ -1,5 +1,4 @@
 #!/usr/bin/env sh
-
 set -Eeuo pipefail
 
 case $(uname -m) in
@@ -22,6 +21,8 @@ fi
 
 ~/.local/bin/nix run nixpkgs#pipx install neovim-remote
 ~/.local/bin/nix run nixpkgs#pipx install pushbullet-cli
+
+# sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 #Git repos with large files will break without this.
 git config --global --add oh-my-zsh.hide-dirty 1
