@@ -2,7 +2,17 @@
 export ZSH="$HOME/.oh-my-zsh"
 autoload -U add-zsh-hook
 
-alias vim="nvim"
+#Nix commands
+if command -v nix &> /dev/null
+then
+  alias nvim="nix run nixpkgs#neovim"
+  alias python="nix run nixpkgs#python3"
+  alias pipx="nix run nixpkgs#pipx"
+  alias vscode="nix run nixpkgs#vscode --impure"
+  alias vim="nvim"
+else:
+  echo "\033[0;31mCould not automatically set up executables\033[0m"
+fi
 ZSH_THEME="robbyrussell"
 
 zmodload zsh/zpty
@@ -12,6 +22,8 @@ source $ZSH/oh-my-zsh.sh
 export EDITOR='nvim'
 export HISTCONTROL=ignoredups
 export ACT_CACHE_AUTH_KEY=aeThooc0
+
+alia
 
 alias e="nvr --remote"
 if (( ${+NVIM} )); then
