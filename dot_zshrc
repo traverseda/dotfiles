@@ -2,7 +2,10 @@
 export ZSH="$HOME/.oh-my-zsh"
 autoload -U add-zsh-hook
 
-source "$HOME/.local_zsh" 
+source "$HOME/.local_zsh" &> /dev/null
+
+#ssh foo.net $BOOTSTRAP_DOTFILES
+export BOOTSTRAP_DOTFILES='sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply traverseda'
 
 #Nix commands
 if command -v nix &> /dev/null
@@ -20,8 +23,11 @@ then
 else
   echo "\033[0;31mCould not automatically set up executables\033[0m"
 fi
-ZSH_THEME="robbyrussell"
 
+#If sudo is an alias we can use aliases in sudo...
+alias sudo='sudo '
+
+ZSH_THEME="robbyrussell"
 zmodload zsh/zpty
 
 source $ZSH/oh-my-zsh.sh
