@@ -21,6 +21,7 @@ then
 fi
 
 ~/.local/bin/nix run nixpkgs#pipx install neovim-remote
+~/.local/bin/nix run nixpkgs#pipx install pushbullet-cli
 
 #Git repos with large files will break without this.
 git config --global --add oh-my-zsh.hide-dirty 1

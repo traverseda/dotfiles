@@ -2,15 +2,22 @@
 export ZSH="$HOME/.oh-my-zsh"
 autoload -U add-zsh-hook
 
+source "$HOME/.local_zsh" 
+
 #Nix commands
 if command -v nix &> /dev/null
 then
-  alias nvim="nix run nixpkgs#neovim"
-  alias python="nix run nixpkgs#python3"
-  alias pipx="nix run nixpkgs#pipx"
-  alias vscode="nix run nixpkgs#vscode --impure"
+  alias nvim="nix run nixpkgs#neovim --"
+  alias python="nix run nixpkgs#python3 --"
+  alias pipx="nix run nixpkgs#pipx --"
+  alias vscodium="nix run nixpkgs#vscodium --"
+  alias pyright="nix run nixpkgs#pyright --"
+  alias pb="nix run nixpkgs#pyright --"
+  alias age="nix run nixpkgs#age --"
+  alias rsync="nix run nixpkgs#rsync --"
+  alias rclone="nix run nixpkgs#rclone --"
   alias vim="nvim"
-else:
+else
   echo "\033[0;31mCould not automatically set up executables\033[0m"
 fi
 ZSH_THEME="robbyrussell"
@@ -23,11 +30,9 @@ export EDITOR='nvim'
 export HISTCONTROL=ignoredups
 export ACT_CACHE_AUTH_KEY=aeThooc0
 
-alia
-
 alias e="nvr --remote"
 if (( ${+NVIM} )); then
-  export EDITOR=~/bin/nvr-edit
+  export EDITOR=~/.local/bin/nvr-edit
   alias vim="nvr --remote"
   #Figure out what our buffer should be
   export VIM_BUFFER="term://${PWD/#$HOME/~/}/$$:${SHELL}"

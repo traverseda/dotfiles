@@ -1,0 +1,19 @@
+[Desktop Entry]
+Name=VsCodium
+Comment=Code Editing. Redefined.
+GenericName=Text Editor
+Exec=nix run nixpkgs#vscodium -- %F
+Icon=com.visualstudio.code.oss
+Type=Application
+StartupNotify=false
+StartupWMClass=code-oss
+Categories=TextEditor;Development;IDE;
+MimeType=text/plain;application/x-code-oss-workspace;
+Actions=new-empty-window;
+Keywords=vscode;
+X-Desktop-File-Install-Version=0.27
+
+[Desktop Action new-empty-window]
+Name=New Empty Window
+Exec=nix run nixpkgs#vscodium -- --new-window %F
+Icon=com.visualstudio.code.oss
