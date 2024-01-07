@@ -19,6 +19,7 @@ then
   alias age="nix run nixpkgs#age --"
   alias rsync="nix run nixpkgs#rsync --"
   alias rclone="nix run nixpkgs#rclone --"
+  alias nvr="nix run nixpkgs#neovim-remote --"
   alias vim="nvim"
 else
   echo "\033[0;31mCould not automatically set up executables\033[0m"
