@@ -9,20 +9,19 @@ export BOOTSTRAP_DOTFILES='sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply 
 
 #Nix commands
 if command -v nix &> /dev/null
-then
-  alias nvim="nix run nixpkgs#neovim --"
-  alias python="nix run nixpkgs#python3 --"
-  alias pipx="nix run nixpkgs#pipx --"
-  alias vscodium="nix run nixpkgs#vscodium --"
-  alias pyright="nix run nixpkgs#pyright --"
-  alias pb="nix run nixpkgs#pyright --"
-  alias age="nix run nixpkgs#age --"
-  alias rsync="nix run nixpkgs#rsync --"
-  alias rclone="nix run nixpkgs#rclone --"
-  alias nvr="nix run nixpkgs#neovim-remote --"
-  alias vim="nvim"
-else
-  echo "\033[0;31mCould not automatically set up executables\033[0m"
+  then
+    alias nvim="nix run nixpkgs#neovim --"
+    alias python="nix run nixpkgs#python3 --"
+    alias pipx="nix run nixpkgs#pipx --"
+    alias vscodium="nix run nixpkgs#vscodium --"
+    alias pyright="nix run nixpkgs#pyright --"
+    alias pb="nix run nixpkgs#pyright --"
+    alias rsync="nix run nixpkgs#rsync --"
+    alias rclone="nix run nixpkgs#rclone --"
+    alias nvr="nix run nixpkgs#neovim-remote --"
+    alias vim="nvim"
+  else
+    echo "\033[0;31mCould not automatically set up executables\033[0m"
 fi
 
 #If sudo is an alias we can use aliases in sudo...
@@ -32,6 +31,9 @@ ZSH_THEME="robbyrussell"
 zmodload zsh/zpty
 
 source $ZSH/oh-my-zsh.sh
+
+#Set nix commands to use completion for generic gnu utils
+compdef _precommand nix
 
 export EDITOR='nvim'
 export HISTCONTROL=ignoredups
