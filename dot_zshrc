@@ -7,25 +7,12 @@ source "$HOME/.local_zsh" &> /dev/null
 #ssh foo.net $BOOTSTRAP_DOTFILES
 export BOOTSTRAP_DOTFILES='sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply traverseda'
 
-#Nix commands
-if command -v nix &> /dev/null
-  then
-    alias nvim="nix run nixpkgs#neovim --"
-    alias python="nix run nixpkgs#python3 --"
-    alias pipx="nix run nixpkgs#pipx --"
-    alias vscodium="nix run nixpkgs#vscodium --"
-    alias pyright="nix run nixpkgs#pyright --"
-    alias pb="nix run nixpkgs#pyright --"
-    alias rsync="nix run nixpkgs#rsync --"
-    alias rclone="nix run nixpkgs#rclone --"
-    alias nvr="nix run nixpkgs#neovim-remote --"
-    alias vim="nvim"
-  else
-    echo "\033[0;31mCould not automatically set up executables\033[0m"
-fi
+alias nvim="neovim"
+alias vim="neovim"
 
 #If sudo is an alias we can use aliases in sudo...
 alias sudo='sudo '
+alias psudo='sudo env "PATH=$PATH '
 
 ZSH_THEME="robbyrussell"
 zmodload zsh/zpty
@@ -39,10 +26,10 @@ export EDITOR='nvim'
 export HISTCONTROL=ignoredups
 export ACT_CACHE_AUTH_KEY=aeThooc0
 
-alias e="nvr --remote"
+alias e="neovim-remote --remote"
 if (( ${+NVIM} )); then
   export EDITOR=~/.local/bin/nvr-edit
-  alias vim="nvr --remote"
+  alias vim="neovim-remote --remote"
   #Figure out what our buffer should be
   export VIM_BUFFER="term://${PWD/#$HOME/~/}/$$:${SHELL}"
   add-zsh-hook chpwd update_buffer_name
@@ -51,7 +38,7 @@ fi
 #Change buffer name when we CD
 #Helpful for vim sessions.
 update_buffer_name() {
-  nvr --remote-expr "ChangeBufferName(\"$VIM_BUFFER\", \"term://${PWD/#$HOME/~/}/$$:${SHELL}\")" &> /dev/null
+  neovim-remote --remote-expr "ChangeBufferName(\"$VIM_BUFFER\", \"term://${PWD/#$HOME/~/}/$$:${SHELL}\")" &> /dev/null
   export VIM_BUFFER="term://${PWD/#$HOME/~/}/$$:${SHELL}"
 }
 

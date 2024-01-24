@@ -4,4 +4,6 @@
 
 vim.opt.number = false
 vim.opt.relativenumber = false
+
+-- Disable weird double qoute behavior
 vim.g.minipairs_disable = true
