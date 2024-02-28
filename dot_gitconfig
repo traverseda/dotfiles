@@ -1,0 +1,7 @@
+[user]
+	email = traverse.da@gmail.com
+	name = Alex Davies
+[oh-my-zsh]
+	hide-dirty = 1
+[init]
+	defaultBranch = main
