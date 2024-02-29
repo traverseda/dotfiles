@@ -4,4 +4,4 @@
 app_name="nixpkgs#$(basename "$0")"
 
 # Run the nix run command with the determined app name and provided arguments
-nix run --impure github:guibou/nixGL "$app_name" -- "${@}"
+nix run --impure github:cmm/nixGL/main -- nix run "$app_name" -- "${@}"
