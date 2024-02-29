@@ -18,4 +18,14 @@ if ! command -v nix-shell &>/dev/null; then #Check if nix already exists on this
 	ln -s ~/.local/bin/nix-portable ~/.local/bin/nix
 fi
 
+# Check if ~/.local/bin/ is in the PATH
+if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
+	echo 'export PATH=$HOME/.local/bin:$PATH' >>~/.bashrc
+	echo 'Added ~/.local/bin/ to PATH. Please restart your terminal or run `source ~/.bashrc`.'
+else
+	echo 'Path already includes ~/.local/bin/. No changes needed.'
+fi
+
+source ~/.bashrc
+
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || true
