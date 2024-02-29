@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -Eeuo pipefail
+set -e
 
 case $(uname -m) in
 "x86_64")
