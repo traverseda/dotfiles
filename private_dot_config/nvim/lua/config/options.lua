@@ -7,3 +7,5 @@ vim.opt.relativenumber = false
 
 -- Disable weird double qoute behavior
 vim.g.minipairs_disable = true
+
+vim.opt.shell = "zsh"
