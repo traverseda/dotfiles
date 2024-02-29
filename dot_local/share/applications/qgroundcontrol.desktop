@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=QGroundControl
+Comment=Ground Control Station for Drones
+GenericName=Drone Control Software
+Exec=qgroundcontrol %F
+Icon=com.qgroundcontrol.QGroundControl
+Type=Application
+StartupNotify=false
+StartupWMClass=qgroundcontrol

@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# Get the app name based on the script name
+app_name="nixpkgs#$(basename "$0")"
+
+# Run the nix run command with the determined app name and provided arguments
+nix run --impure github:guibou/nixGL "$app_name" -- "${@}"

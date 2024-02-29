@@ -2,7 +2,7 @@
 Name=VsCodium
 Comment=Code Editing. Redefined.
 GenericName=Text Editor
-Exec=nix run nixpkgs#vscodium -- %F
+Exec=vscodium %F
 Icon=com.visualstudio.code.oss
 Type=Application
 StartupNotify=false
