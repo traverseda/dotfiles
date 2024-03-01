@@ -4,4 +4,4 @@
 app_name="nixpkgs#$(basename "$0")"
 
 # Run the nix run command with the determined app name and provided arguments
-nix run "$app_name" -- "${@}"
+nix run --offline "$app_name" -- "${@}"
