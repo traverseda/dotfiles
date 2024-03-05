@@ -24,7 +24,7 @@ let
     qgroundcontrol
     signal-desktop
     element-desktop
-  ];  
+  ];
 in
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -69,7 +69,7 @@ in
     #This script lets us work with stuff where we need wait for vim to 
     # exit, like `git commit`
     (pkgs.writeShellScriptBin "nvr-edit" ''
-      neovim-remote --remote-wait $@
+      nvr --remote-wait $@
     '')
   ] ++ (if enableGui then guiPackages else []) ;
 
@@ -88,7 +88,7 @@ in
     };
     initExtra = ''
     if [[ -n ''${NVIM+x} ]]; then
-      alias vim="neovim-remote --remote"
+      alias vim="nvr --remote"
       export EDITOR=nvr-edit
     fi
     '';
