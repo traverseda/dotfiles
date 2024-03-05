@@ -1,9 +1,8 @@
 { config, pkgs, lib, ... }:
 
 let
-  ros = import (
-    builtins.fetchTarball https://github.com/lopsided98/nix-ros-overlay/archive/master.tar.gz
-  ) {};
+  ros = builtins.getFlake "github:lopsided98/nix-ros-overlay";
+  
   fromGitHub = ref: repo: pkgs.vimUtils.buildVimPlugin {
     pname = "${lib.strings.sanitizeDerivationName repo}";
     version = ref;
@@ -12,19 +11,6 @@ let
       ref = ref;
     };
   };
-  enableGui = false;
-  guiPackages = with pkgs; [
-    logseq
-    wl-clipboard
-    nextcloud-client
-    vscodium
-    inkscape
-    gimp
-    krita
-    qgroundcontrol
-    signal-desktop
-    element-desktop
-  ];
 in
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -57,10 +43,19 @@ in
     pkgs.rclone
     pkgs.pyright
     pkgs.mosh
-    # Only manage gui programs if we're running on nixos with a GUI,
-    # I don't want to mess around with nixgl so we only do gui stuff on 
-    # real nixos
-
+    {{ if.guiapps}}
+    logseq
+    wl-clipboard
+    nextcloud-client
+    vscodium
+    inkscape
+    gimp
+    krita
+    qgroundcontrol
+    signal-desktop
+    element-desktop
+    {{ end }}
+    # ros.legacyPackages.x86_64-linux.noetic.rqt-gui
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
@@ -72,7 +67,7 @@ in
     (pkgs.writeShellScriptBin "nvr-edit" ''
       nvr --remote-wait $@
     '')
-  ] ++ (if enableGui then guiPackages else []) ;
+  ];
 
   programs.zsh = {
     enable = true;
@@ -165,6 +160,7 @@ in
   #
   home.sessionVariables = {
     LOCALE_ARCHIVE = "/usr/lib/locale/locale-archive";
+    LC_ALL = "en_US.UTF-8";
     # EDITOR = "emacs";
   };
 
