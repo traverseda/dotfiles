@@ -12,6 +12,19 @@ let
       ref = ref;
     };
   };
+  enableGui = false;
+  guiPackages = with pkgs; [
+    logseq
+    wl-clipboard
+    nextcloud-client
+    vscodium
+    inkscape
+    gimp
+    krita
+    qgroundcontrol
+    signal-desktop
+    element-desktop
+  ];  
 in
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -43,19 +56,9 @@ in
     pkgs.pipx
     pkgs.rclone
     pkgs.pyright
-
-    pkgs.logseq
-    pkgs.wl-clipboard
-    pkgs.nextcloud-client
-    pkgs.vscodium
-    pkgs.inkscape
-    pkgs.gimp
-    pkgs.krita
-    pkgs.qgroundcontrol
-
-    pkgs.signal-desktop
-    pkgs.element-desktop
-
+    # Only manage gui programs if we're running on nixos with a GUI,
+    # I don't want to mess around with nixgl so we only do gui stuff on 
+    # real nixos
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -68,7 +71,7 @@ in
     (pkgs.writeShellScriptBin "nvr-edit" ''
       neovim-remote --remote-wait $@
     '')
-  ];
+  ] ++ (if enableGui then guiPackages else []) ;
 
   programs.zsh = {
     enable = true;
