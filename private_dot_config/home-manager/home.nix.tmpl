@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, appimageTools, ... }:
 
 let
   ros = builtins.getFlake "github:lopsided98/nix-ros-overlay";
@@ -43,17 +43,44 @@ in
     pkgs.rclone
     pkgs.pyright
     pkgs.mosh
-    {{ if.guiapps}}
-    logseq
-    wl-clipboard
-    nextcloud-client
-    vscodium
-    inkscape
-    gimp
-    krita
-    qgroundcontrol
-    signal-desktop
-    element-desktop
+
+    {{ if .rosapps }}
+    ros.legacyPackages.x86_64-linux.noetic.rostopic
+    {{ if .guiapps}}
+    ros.legacyPackages.x86_64-linux.noetic.rqt-gui
+    ros.legacyPackages.x86_64-linux.noetic.rqt-gui-py
+    ros.legacyPackages.x86_64-linux.noetic.rqt
+    {{ end }}
+    {{ end }}
+
+    {{ if .guiapps}}
+    pkgs.firefox
+    pkgs.logseq
+    pkgs.wl-clipboard
+    pkgs.nextcloud-client
+    pkgs.vscodium
+    pkgs.inkscape
+    pkgs.gimp
+    pkgs.krita
+    pkgs.qgroundcontrol
+    pkgs.signal-desktop
+    pkgs.element-desktop
+    #Logitech peripheral management
+    pkgs.solaar
+    pkgs.libreoffice-qt
+    pkgs.hunspell
+    pkgs.hunspellDicts.en_CA
+    pkgs.hunspellDicts.en_US
+
+    (pkgs.appimageTools.wrapType2
+      {
+        name = "creality-print";
+        src = pkgs.fetchurl {
+          url = "https://file2-cdn.creality.com/file/05a4538e0c7222ce547eb8d58ef0251e/Creality_Print-v4.3.7.6627-x86_64-Release.AppImage";
+          sha256 = "sha256-WUsL7UbxSY94H4F1Ww8vLsfRyeg2/DZ+V4B6eH3M6+M=";
+        };
+    })
+
     {{ end }}
     # ros.legacyPackages.x86_64-linux.noetic.rqt-gui
     # # It is sometimes useful to fine-tune packages, for example, by applying
@@ -108,23 +135,22 @@ in
     ];
   };
   programs.firefox = {
-    profiles = {
-      default = {
-        enable = true;
-    	  extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-    	    ublock-origin
-    	    bitwarden
-    	    darkreader
-        ];
-      };
+    policies = {
+        Preferences = {
+          "widget.use-xdg-desktop-portal.file-picker" = 1;
+        };
     };
   };
 
 
-   home.file."./.config/nvim/" = {
-     source = ./nvim;
-     recursive = true;
-   };
+  home.file."./.config/nvim/" = {
+    source = ./nvim;
+    recursive = true;
+  };
+
+  {{ if .guiapps}}
+  services.kdeconnect.enable = true;
+  {{ end }}
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
