@@ -33,7 +33,6 @@ in
   home.packages = [
 
 
-    (pkgs.nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" "Hack"]; })
 
     pkgs.htop
     pkgs.zsh
@@ -48,8 +47,6 @@ in
     pkgs.rclone
     pkgs.pyright
     pkgs.mosh
-    #So we have a basic cpp compiler
-    pkgs.zig
 
     {{ if .rosapps }}
     ros.legacyPackages.x86_64-linux.noetic.rostopic
@@ -66,6 +63,7 @@ in
     {{ end }}
 
     {{ if .guiapps}}
+    (pkgs.nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" "Hack"]; })
     pkgs.firefox
     pkgs.logseq
     pkgs.wl-clipboard
@@ -106,6 +104,10 @@ in
     # exit, like `git commit`
     (pkgs.writeShellScriptBin "nvr-edit" ''
       nvr --remote-wait $@
+    '')
+    #This script lets you add any file to a git repo
+    (pkgs.writeShellScriptBin "sys-git" ''
+      git -c status.showUntrackedFiles=no --git-dir={{.chezmoi.homeDir}}/.sys-git-repo --work-tree=/ $@ $@
     '')
   ];
 
