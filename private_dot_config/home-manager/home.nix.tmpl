@@ -107,7 +107,7 @@ in
     '')
     #This script lets you add any file to a git repo
     (pkgs.writeShellScriptBin "sys-git" ''
-      git -c status.showUntrackedFiles=no --git-dir={{.chezmoi.homeDir}}/.sys-git-repo --work-tree=/ $@ $@
+      git -c status.showUntrackedFiles=no --git-dir={{.chezmoi.homeDir}}/.sys-git-repo --work-tree=/ $@
     '')
   ];
 
