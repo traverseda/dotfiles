@@ -29,7 +29,12 @@ in
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
+  #
   home.packages = [
+
+
+    (pkgs.nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" "Hack"]; })
+
     pkgs.htop
     pkgs.zsh
     pkgs.xclip
@@ -43,13 +48,20 @@ in
     pkgs.rclone
     pkgs.pyright
     pkgs.mosh
+    #So we have a basic cpp compiler
+    pkgs.zig
 
     {{ if .rosapps }}
     ros.legacyPackages.x86_64-linux.noetic.rostopic
     {{ if .guiapps}}
-    ros.legacyPackages.x86_64-linux.noetic.rqt-gui
-    ros.legacyPackages.x86_64-linux.noetic.rqt-gui-py
-    ros.legacyPackages.x86_64-linux.noetic.rqt
+    (with ros.legacyPackages.x86_64-linux.noetic; pkgs.lowPrio (buildEnv {
+      paths = [
+        rostopic
+        rqt-gui
+        rqt-gui-py
+        rqt
+      ];
+    }))
     {{ end }}
     {{ end }}
 
@@ -72,6 +84,7 @@ in
     pkgs.hunspellDicts.en_CA
     pkgs.hunspellDicts.en_US
 
+    pkgs.krdc
     (pkgs.appimageTools.wrapType2
       {
         name = "creality-print";
