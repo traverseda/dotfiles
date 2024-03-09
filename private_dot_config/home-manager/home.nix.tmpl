@@ -1,7 +1,12 @@
 { config, pkgs, lib, appimageTools, ... }:
 
 let
+  {{if .rosapps }}
   ros = builtins.getFlake "github:lopsided98/nix-ros-overlay";
+  {{ end }}
+  {{if .guiapps}}
+  plasma-manager = builtins.getFlake "github:pjones/plasma-manager";
+  {{ end }}
   
   fromGitHub = ref: repo: pkgs.vimUtils.buildVimPlugin {
     pname = "${lib.strings.sanitizeDerivationName repo}";
@@ -13,6 +18,10 @@ let
   };
 in
 {
+  imports = [
+    {{if .guiapps}}(plasma-manager + "/modules"){{end}}
+  ];
+
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "{{.chezmoi.username}}";
@@ -116,6 +125,7 @@ in
       exec "$@"
     '')
     {{ end }}
+
     #This script lets you add any file to a git repo
     #(pkgs.writeshellscriptbin "sys-git" ''
     #  git -c status.showuntrackedfiles=no --git-dir={{.chezmoi.homeDir}}/.sys-git-repo --work-tree=/ $@
@@ -175,8 +185,12 @@ in
     recursive = true;
   };
 
-  {{ if .guiapps}}
+  {{ if .guiapps }}
   services.kdeconnect.enable = true;
+
+  programs.plasma = {
+    enable = true;
+  };
   {{ end }}
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
