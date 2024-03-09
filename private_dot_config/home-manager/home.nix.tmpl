@@ -47,6 +47,7 @@ in
     pkgs.rclone
     pkgs.pyright
     pkgs.mosh
+    pkgs.jq
 
     {{ if .rosapps }}
     ros.legacyPackages.x86_64-linux.noetic.rostopic
@@ -105,10 +106,21 @@ in
     (pkgs.writeShellScriptBin "nvr-edit" ''
       nvr --remote-wait $@
     '')
-    #This script lets you add any file to a git repo
-    (pkgs.writeShellScriptBin "sys-git" ''
-      git -c status.showUntrackedFiles=no --git-dir={{.chezmoi.homeDir}}/.sys-git-repo --work-tree=/ $@
+
+    {{ if .nvidia_prime }}
+    (pkgs.writeShellScriptBin "nvidia-offload" ''
+      export __NV_PRIME_RENDER_OFFLOAD=1
+      export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
+      export __GLX_VENDOR_LIBRARY_NAME=nvidia
+      export __VK_LAYER_NV_optimus=NVIDIA_only
+      exec "$@"
     '')
+    {{ end }}
+    #This script lets you add any file to a git repo
+    #(pkgs.writeshellscriptbin "sys-git" ''
+    #  git -c status.showuntrackedfiles=no --git-dir={{.chezmoi.homeDir}}/.sys-git-repo --work-tree=/ $@
+    #'')
+
   ];
 
   programs.zsh = {
