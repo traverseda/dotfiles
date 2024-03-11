@@ -20,6 +20,10 @@ in
   virtualisation.docker.enable = true;
   virtualisation.waydroid.enable = true;
 
+  services.udev.packages = [
+    pkgs.android-udev-rules
+  ];
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -120,8 +124,8 @@ in
      pkgs.mosh
      pkgs.krfb
      pkgs.krdc
+     pkgs.distrobox
   ];
-
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
