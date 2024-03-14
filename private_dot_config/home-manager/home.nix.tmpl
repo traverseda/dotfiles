@@ -56,6 +56,11 @@ in
     pkgs.pyright
     pkgs.mosh
     pkgs.jq
+    pkgs.copier
+    pkgs.pv
+    pkgs.poetry
+    pkgs.nmap
+    pkgs.dig
 
     {{ if .rosapps }}
     ros.legacyPackages.x86_64-linux.noetic.rostopic
@@ -135,6 +140,19 @@ in
   programs.git = {
     enable = true;
     lfs.enable = true;
+    userEmail = "traverse.da@gmail.com";
+    userName = "Alex Davies";
+    extraConfig = {
+      oh-my-zsh = {
+        "hide-dirty" = "1";
+      };
+      init = {
+        defaultBranch = "main";
+      };
+      credential = {
+        helper = "cache";
+      };
+    };    
   };
 
   programs.zsh = {
@@ -198,8 +216,21 @@ in
       theme = "breeze-dark";
       colorScheme = "BreezeDark";
     };
-    shortcuts.konsole = {
-      "launch" = "Meta+Return";
+    shortcuts = {
+      "services.org.kde.konsole.desktop"."NewWindow" = "Meta+Return";
+      "kwin"."Window Close" = ["Meta+Shift+C" "Alt+F4"];
+      "kwin"."Cube" = "Meta+C";
+    };
+    shortcuts.plasmashell = {
+      "activate task manager entry 1" = "";
+      "activate task manager entry 2" = "";
+      "activate task manager entry 3" = "";
+      "activate task manager entry 4" = "";
+      "activate task manager entry 5" = "";
+      "activate task manager entry 6" = "";
+      "activate task manager entry 7" = "";
+      "activate task manager entry 8" = "";
+      "activate task manager entry 9" = "";
     };
     shortcuts.kwin = {
       "Switch to Desktop 1" = "Meta+1"; 

@@ -13,6 +13,7 @@ in
       <home-manager/nixos>
     ];
 
+
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true;
 
@@ -28,7 +29,9 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "athame"; # Define your hostname.
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" "aarch64_be-linux"];
+
+  networking.hostName = "{{.hostname}}"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
@@ -96,7 +99,7 @@ in
   users.users.traverseda = {
     isNormalUser = true;
     description = "Alex Davies";
-    extraGroups = [ "networkmanager" "wheel" "dialout" "docker"];
+    extraGroups = [ "networkmanager" "wheel" "dialout" "docker" "plugdev"];
     packages = with pkgs; [
       home-manager
     ];
@@ -125,6 +128,9 @@ in
      pkgs.krfb
      pkgs.krdc
      pkgs.distrobox
+     pkgs.usbutils
+     pkgs.pciutils
+     pkgs.bash
   ];
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
