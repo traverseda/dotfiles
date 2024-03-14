@@ -78,6 +78,7 @@ in
 
     {{ if .guiapps}}
     (pkgs.nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" "Hack"]; })
+    pkgs.openscad
     pkgs.firefox
     pkgs.logseq
     pkgs.wl-clipboard
@@ -209,6 +210,7 @@ in
 
   {{ if .guiapps }}
   services.kdeconnect.enable = true;
+
 
   programs.plasma = {
     enable = true;
