@@ -21,10 +21,6 @@ in
   virtualisation.docker.enable = true;
   virtualisation.waydroid.enable = true;
 
-  services.udev.packages = [
-    pkgs.android-udev-rules
-  ];
-
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -133,6 +129,7 @@ in
      pkgs.pciutils
      pkgs.bash
   ];
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
