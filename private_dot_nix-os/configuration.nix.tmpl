@@ -21,11 +21,13 @@ in
   virtualisation.docker.enable = true;
   virtualisation.waydroid.enable = true;
 
+  system.copySystemConfiguration = true;
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" "aarch64_be-linux"];
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
   networking.hostName = "{{.hostname}}"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -128,6 +130,7 @@ in
      pkgs.usbutils
      pkgs.pciutils
      pkgs.bash
+     pkgs.appimage-run
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -144,6 +147,27 @@ in
     # Add any missing dynamic libraries for unpackaged programs
     # here, NOT in environment.systemPackages
     pkgs.zlib
+    pkgs.stdenv.cc.cc
+    pkgs.openssl
+    pkgs.xorg.libXcomposite
+    pkgs.xorg.libXtst
+    pkgs.xorg.libXrandr
+    pkgs.xorg.libXext
+    pkgs.xorg.libX11
+    pkgs.xorg.libXfixes
+    pkgs.libGL
+    pkgs.libva
+    pkgs.pipewire
+    pkgs.xorg.libxcb
+    pkgs.xorg.libXdamage
+    pkgs.xorg.libxshmfence
+    pkgs.xorg.libXxf86vm
+    pkgs.libelf
+    
+    # Required
+    pkgs.glib
+    pkgs.gtk2
+    pkgs.bzip2
   ];
 
 #Enable appimages
