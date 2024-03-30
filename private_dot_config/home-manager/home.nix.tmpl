@@ -133,9 +133,9 @@ in
     {{ end }}
 
     #This script lets you add any file to a git repo
-    #(pkgs.writeshellscriptbin "sys-git" ''
-    #  git -c status.showuntrackedfiles=no --git-dir={{.chezmoi.homeDir}}/.sys-git-repo --work-tree=/ $@
-    #'')
+    (pkgs.writeShellScriptBin "sys-git" ''
+      git -c status.showuntrackedfiles=no --git-dir={{.chezmoi.homeDir}}/.sys-git-repo --work-tree=/ $@
+    '')
 
   ];
 
@@ -160,7 +160,7 @@ in
   programs.zsh = {
     enable = true;
     enableCompletion = true;
-    enableAutosuggestions = true;
+    autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
 
     history.size = 10000;
@@ -258,8 +258,8 @@ in
       "Window to Desktop 10" = "Meta+)";
     };
     configFile = {
-      "kwinrc"."Desktops"."Number" = 10;
-      "kwinrc"."Desktops"."Rows" = 2;
+      "kwinrc"."Desktops"."Number"."value" = 10;
+      "kwinrc"."Desktops"."Rows"."value" = 2;
     };
   };
   {{ end }}
