@@ -41,8 +41,6 @@ in
   #
   home.packages = [
 
-
-
     pkgs.htop
     pkgs.zsh
     pkgs.xclip
@@ -90,8 +88,10 @@ in
     pkgs.qgroundcontrol
     pkgs.signal-desktop
     pkgs.element-desktop
+    pkgs.vlc
     #Logitech peripheral management
     pkgs.solaar
+    #libreoffice I guess
     pkgs.libreoffice-qt
     pkgs.hunspell
     pkgs.hunspellDicts.en_CA
@@ -137,6 +137,12 @@ in
     #'')
 
   ];
+  programs.ssh.extraConfig = ''
+    Host *
+        ControlMaster auto
+        ControlPath ~/.ssh/sockets/%r@%h-%p
+        ControlPersist 600
+  '';
 
   programs.git = {
     enable = true;
@@ -257,8 +263,8 @@ in
       "Window to Desktop 10" = "Meta+)";
     };
     configFile = {
-      "kwinrc"."Desktops"."Number" = 10;
-      "kwinrc"."Desktops"."Rows" = 2;
+      "kwinrc"."Desktops"."Number"."value" = 10;
+      "kwinrc"."Desktops"."Rows"."value" = 2;
     };
   };
   {{ end }}

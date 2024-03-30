@@ -10,6 +10,7 @@ in
   imports =
     [ # Include the results of the hardware scan.
       /etc/nixos/hardware-configuration.nix
+      ./dslr-webcam.nix
       <home-manager/nixos>
     ];
 
@@ -17,7 +18,7 @@ in
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true;
 
-  security.sudo.wheelNeedsPassword = false;
+  security.sudo.wheelNeedsPassword = true;
   virtualisation.docker.enable = true;
   virtualisation.waydroid.enable = true;
 
@@ -26,6 +27,8 @@ in
   boot.loader.efi.canTouchEfiVariables = true;
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" "aarch64_be-linux"];
+  boot.extraModulePackages = [ pkgs.linuxPackages.v4l2loopback ];
+
 
   networking.hostName = "{{.hostname}}"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -60,8 +63,7 @@ in
 
   # Enable the KDE Plasma Desktop Environment.
   services.xserver.displayManager.sddm.enable = true;
-  #services.xserver.desktopManager.plasma6.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
+  services.desktopManager.plasma6.enable = true;
 
   # Configure keymap in X11
   services.xserver = {
@@ -128,6 +130,7 @@ in
      pkgs.usbutils
      pkgs.pciutils
      pkgs.bash
+     pkgs.linuxPackages.v4l2loopback
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
