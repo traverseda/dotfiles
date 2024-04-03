@@ -6,12 +6,7 @@ let
     options v4l2loopback exclusive_caps=1 max_buffers=2 card_label="DSLR" video_nr=10
   '';
 
-  dslrUdevRule = ''
-    ACTION=="add", SUBSYSTEM=="usb",
-    ATTR{idVendor}=="04a9",
-    ATTR{idProduct}=="317b",
-    RUN+="/bin/sh -c 'gphoto2 --stdout --capture-movie | ffmpeg -i - -vcodec rawvideo -pix_fmt yuv420p -f v4l2 /dev/video10'"
-  '';
+  dslrUdevRule = ''ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="04a9", ATTR{idProduct}=="317b", RUN+="/bin/sh -c 'gphoto2 --stdout --capture-movie | ffmpeg -i - -vcodec rawvideo -pix_fmt yuv420p -f v4l2 /dev/video10'"'';
 in
 {
   # Ensure your system configuration includes these options:

@@ -11,6 +11,7 @@ in
     [ # Include the results of the hardware scan.
       /etc/nixos/hardware-configuration.nix
       ./dslr-webcam.nix
+      ./multiplex_wifi.nix
       <home-manager/nixos>
     ];
 
@@ -21,7 +22,6 @@ in
   security.sudo.wheelNeedsPassword = true;
   virtualisation.docker.enable = true;
   virtualisation.waydroid.enable = true;
-
   system.copySystemConfiguration = true;
 
   # Bootloader.
@@ -122,6 +122,7 @@ in
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
      pkgs.neovim
+     pkgs.firejail
      pkgs.cachix
      pkgs.aha
      pkgs.mosh
