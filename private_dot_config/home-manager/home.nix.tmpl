@@ -60,6 +60,9 @@ in
     pkgs.poetry
     pkgs.nmap
     pkgs.dig
+    pkgs.tree
+    pkgs.curl
+    pkgs.wget
 
     {{ if .rosapps }}
     ros.legacyPackages.x86_64-linux.noetic.rostopic
@@ -91,6 +94,7 @@ in
     pkgs.signal-desktop
     pkgs.element-desktop
     pkgs.vlc
+    pkgs.filelight
     #Logitech peripheral management
     pkgs.solaar
     #libreoffice I guess
